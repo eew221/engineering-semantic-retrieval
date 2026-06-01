@@ -26,6 +26,8 @@ Included:
 - public release manifests with sanitized relative paths
 - metrics JSON files used in the paper
 - analysis figures used in the paper
+- paired significance and bootstrap outputs for the revised baseline set
+- citation and release metadata for future GitHub/Zenodo publication
 
 Not included:
 
@@ -94,6 +96,7 @@ python scripts/evaluate_retrieval.py --config configs/bridge_retrieval_lambda_t_
 Additional utilities:
 
 - `scripts/bootstrap_retrieval_ci.py`
+- `scripts/paired_retrieval_significance.py`
 - `scripts/export_embedding_viz.py`
 - `scripts/plot_lambda_sensitivity.py`
 - `scripts/evaluate_checkpoint_series.py`
@@ -118,6 +121,7 @@ Representative figures:
 - The visible-extent target is an area-derived surrogate, not a structural severity label.
 - Repeated-seed summaries are available for the main `lambda_t=0.5` configuration.
 - Broader ablation families and some stronger baselines are still single-run comparisons.
+- DOI minting is pending a formal GitHub release linked to Zenodo.
 
 ## Citation Note
 

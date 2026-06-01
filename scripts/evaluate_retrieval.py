@@ -13,8 +13,9 @@ sys.path.insert(0, str(ROOT))
 
 from src.bridge_retrieval.datasets import RetrievalDataset, retrieval_collate_fn
 from src.bridge_retrieval.labels import make_component_prompt, make_damage_prompt
+from src.bridge_retrieval.engineering_semantics import engineering_similarity, SampleSemantics
 from src.bridge_retrieval.metrics import retrieval_metrics, retrieval_metrics_from_ranks, similarity_matrix
-from src.bridge_retrieval.modeling import BridgeRetrievalModel
+from src.bridge_retrieval.modeling import BridgeRetrievalModel, build_model_for_state_dict
 from src.bridge_retrieval.qualitative import save_retrieval_grid
 from src.bridge_retrieval.utils import ensure_dir, load_yaml, save_json
 
@@ -63,6 +64,45 @@ def rerank_indices(
     return reranked
 
 
+def retrieval_annotation(
+    query_idx: int,
+    candidate_idx: int,
+    damage_labels: list[str],
+    component_labels: list[str],
+    severity_scores: np.ndarray,
+    pred_damage: list[str],
+    pred_component: list[str],
+    pred_extent: np.ndarray,
+) -> list[str]:
+    q = SampleSemantics(
+        damage_class=damage_labels[query_idx],
+        component_class=component_labels[query_idx],
+        severity_score=float(severity_scores[query_idx]),
+    )
+    c = SampleSemantics(
+        damage_class=damage_labels[candidate_idx],
+        component_class=component_labels[candidate_idx],
+        severity_score=float(severity_scores[candidate_idx]),
+    )
+    rel = engineering_similarity(q, c)
+    failure_parts: list[str] = []
+    if damage_labels[candidate_idx] != damage_labels[query_idx]:
+        failure_parts.append("damage")
+    if component_labels[candidate_idx] != component_labels[query_idx]:
+        failure_parts.append("component")
+    extent_gap = abs(float(severity_scores[candidate_idx]) - float(severity_scores[query_idx]))
+    failure_note = "ok" if not failure_parts and extent_gap <= 0.15 else (
+        "fail: " + ",".join(failure_parts) if failure_parts else f"fail: extent>{0.15:.2f}"
+    )
+    return [
+        f"GT {damage_labels[candidate_idx]} | {component_labels[candidate_idx]}",
+        f"Pred {pred_damage[candidate_idx]} | {pred_component[candidate_idx]}",
+        f"extent {severity_scores[candidate_idx]:.2f} pred {pred_extent[candidate_idx]:.2f}",
+        f"rel {rel:.2f} gap {extent_gap:.2f}",
+        failure_note,
+    ]
+
+
 @torch.no_grad()
 def main() -> None:
     args = parse_args()
@@ -77,6 +117,7 @@ def main() -> None:
         is_train=False,
         max_samples=cfg["data"].get("max_eval_samples"),
         use_full_image_fallback=cfg["data"]["use_full_image_fallback"],
+        image_normalization=cfg["data"].get("image_normalization", "clip"),
     )
     loader = DataLoader(
         dataset,
@@ -87,17 +128,25 @@ def main() -> None:
         collate_fn=retrieval_collate_fn,
     )
 
-    model = BridgeRetrievalModel(
-        backbone_name=cfg["model"]["backbone_name"],
-        dropout=cfg["model"]["dropout"],
-        freeze_vision_backbone=cfg["model"]["freeze_vision_backbone"],
-        use_text_anchors=cfg["model"]["use_text_anchors"],
-    ).to(device)
-
+    state = None
     if not args.no_checkpoint:
         checkpoint = args.checkpoint or Path(cfg["train"]["save_dir"]) / f"{cfg['experiment_name']}.pt"
         state = torch.load(checkpoint, map_location=device)
-        model.load_state_dict(state["model_state_dict"])
+        model, _ = build_model_for_state_dict(
+            backbone_name=cfg["model"]["backbone_name"],
+            dropout=cfg["model"]["dropout"],
+            freeze_vision_backbone=cfg["model"]["freeze_vision_backbone"],
+            use_text_anchors=cfg["model"]["use_text_anchors"],
+            state_dict=state["model_state_dict"],
+        )
+    else:
+        model = BridgeRetrievalModel(
+            backbone_name=cfg["model"]["backbone_name"],
+            dropout=cfg["model"]["dropout"],
+            freeze_vision_backbone=cfg["model"]["freeze_vision_backbone"],
+            use_text_anchors=cfg["model"]["use_text_anchors"],
+        )
+    model = model.to(device)
     model.eval()
 
     embeddings = []
@@ -110,11 +159,11 @@ def main() -> None:
     for batch in loader:
         batch = move_batch_to_device(batch, device)
         outputs = model(batch)
-        embeddings.append(outputs["image_embeds"].cpu().numpy())
+        embeddings.append(outputs["image_embeds"].detach().cpu().numpy())
         damage_labels.extend(batch["damage_class"])
         component_labels.extend(batch["component_class"])
         severity_scores.extend(batch["severity_score"].cpu().numpy().tolist())
-        severity_preds.extend(outputs["severity_pred"].squeeze(-1).cpu().numpy().tolist())
+        severity_preds.extend(outputs["severity_pred"].squeeze(-1).detach().cpu().numpy().tolist())
         crop_paths.extend(batch["crop_path"])
 
     embeddings_np = np.concatenate(embeddings, axis=0)
@@ -175,6 +224,9 @@ def main() -> None:
 
         if args.save_qualitative:
             qualitative_dir = ensure_dir(cfg["output"]["qualitative_dir"])
+            pred_damage = [cfg["labels"]["damage_classes"][int(np.argmax(row))] for row in damage_probs]
+            pred_component = [cfg["labels"]["component_classes"][int(np.argmax(row))] for row in component_probs]
+            pred_severity = np.asarray(severity_preds, dtype=np.float32)
             chosen = 0
             for i in range(len(crop_paths)):
                 before = ranked_before[i, :5]
@@ -188,6 +240,39 @@ def main() -> None:
                     after_paths=[crop_paths[j] for j in after],
                     out_path=qualitative_dir / f"retrieval_query_{i:04d}.png",
                     title=title,
+                    query_lines=[
+                        f"GT {damage_labels[i]} | {component_labels[i]}",
+                        f"Pred {pred_damage[i]} | {pred_component[i]}",
+                        f"extent {severity_np[i]:.2f} pred {pred_severity[i]:.2f}",
+                    ],
+                    before_titles=[f"top-{rank}" for rank in range(1, len(before) + 1)],
+                    after_titles=[f"top-{rank}" for rank in range(1, len(after) + 1)],
+                    before_lines=[
+                        retrieval_annotation(
+                            query_idx=i,
+                            candidate_idx=j,
+                            damage_labels=damage_labels,
+                            component_labels=component_labels,
+                            severity_scores=severity_np,
+                            pred_damage=pred_damage,
+                            pred_component=pred_component,
+                            pred_extent=pred_severity,
+                        )
+                        for j in before
+                    ],
+                    after_lines=[
+                        retrieval_annotation(
+                            query_idx=i,
+                            candidate_idx=j,
+                            damage_labels=damage_labels,
+                            component_labels=component_labels,
+                            severity_scores=severity_np,
+                            pred_damage=pred_damage,
+                            pred_component=pred_component,
+                            pred_extent=pred_severity,
+                        )
+                        for j in after
+                    ],
                 )
                 chosen += 1
                 if chosen >= 6:

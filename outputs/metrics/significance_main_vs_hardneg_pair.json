@@ -1,0 +1,60 @@
+{
+  "config_a": "configs\\bridge_retrieval_hardneg_supcon_pair_3epoch.yaml",
+  "config_b": "configs\\bridge_retrieval_lambda_t_05_3epoch.yaml",
+  "checkpoint_a": "outputs\\checkpoints\\bridge_engineering_semantic_retrieval_hardneg_supcon_pair_3epoch.pt",
+  "checkpoint_b": "outputs\\checkpoints\\bridge_engineering_semantic_retrieval_lambda_t_05_3epoch.pt",
+  "bootstrap_iters": 2000,
+  "perm_iters": 10000,
+  "summary": {
+    "mAP": {
+      "mean_a": 0.6243295073509216,
+      "mean_b": 0.41478288173675537,
+      "diff_mean": -0.20952443778514862,
+      "diff_ci95": [
+        -0.21488617062568666,
+        -0.2042443372309208
+      ],
+      "perm_p_value": 9.999000099990002e-05
+    },
+    "Recall@1": {
+      "mean_a": 0.6673822999000549,
+      "mean_b": 0.5425790548324585,
+      "diff_mean": -0.12476520985364914,
+      "diff_ci95": [
+        -0.1382567286491394,
+        -0.11220836639404297
+      ],
+      "perm_p_value": 9.999000099990002e-05
+    },
+    "Recall@5": {
+      "mean_a": 0.8783454895019531,
+      "mean_b": 0.8019178509712219,
+      "diff_mean": -0.07637012004852295,
+      "diff_ci95": [
+        -0.08658939599990845,
+        -0.06626594066619873
+      ],
+      "perm_p_value": 9.999000099990002e-05
+    },
+    "Recall@10": {
+      "mean_a": 0.9194217920303345,
+      "mean_b": 0.8709031343460083,
+      "diff_mean": -0.048448119312524796,
+      "diff_ci95": [
+        -0.05724918842315674,
+        -0.03978818506002426
+      ],
+      "perm_p_value": 9.999000099990002e-05
+    },
+    "NDCG@5": {
+      "mean_a": 0.7978123426437378,
+      "mean_b": 0.7297998070716858,
+      "diff_mean": -0.06799090653657913,
+      "diff_ci95": [
+        -0.07208274453878402,
+        -0.063989919424057
+      ],
+      "perm_p_value": 9.999000099990002e-05
+    }
+  }
+}

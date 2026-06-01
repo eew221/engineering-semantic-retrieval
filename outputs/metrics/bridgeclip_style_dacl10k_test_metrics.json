@@ -1,22 +1,21 @@
-﻿{
+{
   "method": "bridgeclip_style_prompt_conditioned_zeroshot",
   "alpha_image": 0.7,
   "beta_text": 0.3,
   "num_prompts": 91,
   "base": {
-    "mAP": 0.2530566206254425,
-    "Recall@1": 0.4867611278087878,
-    "NDCG@1": 0.7224766479740331,
-    "ComponentConsistency@1": 0.9371690281952197,
-    "SeverityConsistency@1": 0.9330184628595964,
-    "Recall@5": 0.8083583798482897,
-    "NDCG@5": 0.7021516873117535,
-    "ComponentConsistency@5": 0.9255188206669529,
-    "SeverityConsistency@5": 0.927379418920853,
-    "Recall@10": 0.9036782596250179,
-    "NDCG@10": 0.6931600697891439,
-    "ComponentConsistency@10": 0.922398740518105,
-    "SeverityConsistency@10": 0.9255474452554745
+    "mAP": 0.25158095725053214,
+    "Recall@1": 0.48547302132531844,
+    "NDCG@1": 0.7222303722282498,
+    "ComponentConsistency@1": 0.937455274080435,
+    "SeverityConsistency@1": 0.9340203234578502,
+    "Recall@5": 0.8113639616430514,
+    "NDCG@5": 0.7017042619961685,
+    "ComponentConsistency@5": 0.927064548447116,
+    "SeverityConsistency@5": 0.9272362959782453,
+    "Recall@10": 0.9043938743380564,
+    "NDCG@10": 0.692801848498625,
+    "ComponentConsistency@10": 0.9239874051810505,
+    "SeverityConsistency@10": 0.9245742092457421
   }
 }
-

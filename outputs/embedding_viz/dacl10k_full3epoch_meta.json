@@ -1,0 +1,6 @@
+{
+  "tag": "dacl10k_full3epoch",
+  "num_samples": 1500,
+  "embedding_dim": 512,
+  "checkpoint": "D:\\视觉论文\\outputs\\checkpoints\\bridge_engineering_semantic_retrieval_full_3epoch.pt"
+}

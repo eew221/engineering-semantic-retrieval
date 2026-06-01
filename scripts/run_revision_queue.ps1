@@ -1,8 +1,7 @@
 $ErrorActionPreference = "Stop"
 
-$scriptDir = $PSScriptRoot
-$root = Split-Path -Parent $scriptDir
-$python = "python"
+$root = "D:\视觉论文"
+$python = "D:\conda\python.exe"
 $logDir = Join-Path $root "outputs\logs"
 
 $jobs = @(

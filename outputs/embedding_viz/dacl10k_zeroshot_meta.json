@@ -1,0 +1,6 @@
+{
+  "tag": "dacl10k_zeroshot",
+  "num_samples": 1500,
+  "embedding_dim": 512,
+  "checkpoint": null
+}

@@ -18,7 +18,21 @@ from .engineering_semantics import SampleSemantics, pair_target_weight
 from .labels import make_compositional_prompt
 
 
-def build_image_transform(image_size: int, is_train: bool) -> transforms.Compose:
+CLIP_MEAN = (0.48145466, 0.4578275, 0.40821073)
+CLIP_STD = (0.26862954, 0.26130258, 0.27577711)
+SIGLIP_MEAN = (0.5, 0.5, 0.5)
+SIGLIP_STD = (0.5, 0.5, 0.5)
+
+
+def resolve_image_normalization(image_normalization: str) -> tuple[tuple[float, float, float], tuple[float, float, float]]:
+    normalized = image_normalization.strip().lower()
+    if normalized in {"siglip", "imagenet_standard", "imagenet-standard"}:
+        return SIGLIP_MEAN, SIGLIP_STD
+    return CLIP_MEAN, CLIP_STD
+
+
+def build_image_transform(image_size: int, is_train: bool, image_normalization: str = "clip") -> transforms.Compose:
+    mean, std = resolve_image_normalization(image_normalization)
     ops: list[Any] = [transforms.Resize((image_size, image_size))]
     if is_train:
         ops.extend(
@@ -31,8 +45,8 @@ def build_image_transform(image_size: int, is_train: bool) -> transforms.Compose
         [
             transforms.ToTensor(),
             transforms.Normalize(
-                mean=(0.48145466, 0.4578275, 0.40821073),
-                std=(0.26862954, 0.26130258, 0.27577711),
+                mean=mean,
+                std=std,
             ),
         ]
     )
@@ -59,6 +73,7 @@ class RetrievalDataset(Dataset):
         is_train: bool = False,
         max_samples: int | None = None,
         use_full_image_fallback: bool = True,
+        image_normalization: str = "clip",
         pair_weight_mode: str = "engineering",
         partner_sampling_strategy: str = "random",
         pair_weight_kwargs: dict[str, Any] | None = None,
@@ -69,7 +84,11 @@ class RetrievalDataset(Dataset):
         self.df = self.df.reset_index(drop=True)
         self.image_column = image_column
         self.use_full_image_fallback = use_full_image_fallback
-        self.transform = build_image_transform(image_size=image_size, is_train=is_train)
+        self.transform = build_image_transform(
+            image_size=image_size,
+            is_train=is_train,
+            image_normalization=image_normalization,
+        )
         self.is_train = is_train
         self.pair_weight_mode = pair_weight_mode
         self.partner_sampling_strategy = partner_sampling_strategy

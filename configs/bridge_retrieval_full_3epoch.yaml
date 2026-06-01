@@ -39,7 +39,7 @@ labels:
     - bridge component unknown
 
 model:
-  backbone_name: C:/Users/45067/.cache/huggingface/hub/models--openai--clip-vit-base-patch32/snapshots/3d74acf9a28c67741b2f4f2ea7635f0aaf6f0268
+  backbone_name: laion/CLIP-ViT-B-32-laion2B-b79K
   embedding_dim: 512
   dropout: 0.1
   freeze_vision_backbone: false

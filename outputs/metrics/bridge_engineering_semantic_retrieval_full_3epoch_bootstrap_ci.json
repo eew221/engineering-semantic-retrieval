@@ -1,4 +1,4 @@
-﻿{
+{
   "experiment_name": "bridge_engineering_semantic_retrieval_full_3epoch",
   "checkpoint": "bridge_engineering_semantic_retrieval_full_3epoch",
   "bootstrap_iters": 2000,
@@ -97,4 +97,3 @@
     }
   }
 }
-

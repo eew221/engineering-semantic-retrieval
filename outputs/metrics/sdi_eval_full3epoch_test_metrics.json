@@ -1,18 +1,17 @@
-﻿{
+{
   "base": {
-    "mAP": 0.8584680696978074,
-    "Recall@1": 0.9565979381443299,
-    "NDCG@1": 0.9565979381443299,
+    "mAP": 0.8703670846824935,
+    "Recall@1": 0.9714432989690721,
+    "NDCG@1": 0.9714432989690721,
     "ComponentConsistency@1": 1.0,
     "SeverityConsistency@1": 1.0,
-    "Recall@5": 0.9781443298969072,
-    "NDCG@5": 0.9532529641244926,
+    "Recall@5": 0.9843298969072165,
+    "NDCG@5": 0.9684928661139359,
     "ComponentConsistency@5": 1.0,
     "SeverityConsistency@5": 1.0,
-    "Recall@10": 0.9817525773195876,
-    "NDCG@10": 0.9503813113407199,
+    "Recall@10": 0.9885567010309279,
+    "NDCG@10": 0.9667742656299045,
     "ComponentConsistency@10": 1.0,
     "SeverityConsistency@10": 1.0
   }
 }
-

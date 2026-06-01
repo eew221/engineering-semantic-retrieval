@@ -1,0 +1,6 @@
+{
+  "tag": "dacl10k_lambda_t_05",
+  "num_samples": 1500,
+  "embedding_dim": 512,
+  "checkpoint": "outputs\\checkpoints\\bridge_engineering_semantic_retrieval_lambda_t_05_3epoch.pt"
+}

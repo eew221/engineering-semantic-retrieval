@@ -49,6 +49,7 @@ def main() -> None:
         is_train=False,
         max_samples=cfg["data"].get("max_eval_samples"),
         use_full_image_fallback=cfg["data"]["use_full_image_fallback"],
+        image_normalization=cfg["data"].get("image_normalization", "clip"),
     )
     loader = DataLoader(
         dataset,

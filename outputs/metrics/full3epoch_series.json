@@ -1,7 +1,7 @@
-﻿[
+[
   {
     "epoch": 1,
-    "checkpoint": "outputs/checkpoints/bridge_engineering_semantic_retrieval_full_3epoch_epoch1.pt",
+    "checkpoint": "D:\\视觉论文\\outputs\\checkpoints\\bridge_engineering_semantic_retrieval_full_3epoch_epoch1.pt",
     "mAP": 0.2538811013192573,
     "Recall@1": 0.38929440389294406,
     "Recall@5": 0.7104622871046229,
@@ -9,7 +9,7 @@
   },
   {
     "epoch": 2,
-    "checkpoint": "outputs/checkpoints/bridge_engineering_semantic_retrieval_full_3epoch_epoch2.pt",
+    "checkpoint": "D:\\视觉论文\\outputs\\checkpoints\\bridge_engineering_semantic_retrieval_full_3epoch_epoch2.pt",
     "mAP": 0.307588978116479,
     "Recall@1": 0.42765135251180764,
     "Recall@5": 0.7333619579218549,
@@ -17,12 +17,10 @@
   },
   {
     "epoch": 3,
-    "checkpoint": "outputs/checkpoints/bridge_engineering_semantic_retrieval_full_3epoch_epoch3.pt",
+    "checkpoint": "D:\\视觉论文\\outputs\\checkpoints\\bridge_engineering_semantic_retrieval_full_3epoch_epoch3.pt",
     "mAP": 0.31421932669231206,
     "Recall@1": 0.44053241734650067,
     "Recall@5": 0.7272076713897238,
     "NDCG@5": 0.6792446636356947
   }
 ]
-
-

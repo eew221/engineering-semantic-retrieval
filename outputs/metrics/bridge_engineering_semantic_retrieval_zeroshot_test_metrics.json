@@ -1,16 +1,17 @@
-﻿{
-  "mAP": 0.25095540636881414,
-  "Recall@1": 0.48203807070273363,
-  "NDCG@1": 0.7203345672757018,
-  "ComponentConsistency@1": 0.9387433805639044,
-  "SeverityConsistency@1": 0.932732216974381,
-  "Recall@5": 0.8126520681265207,
-  "NDCG@5": 0.7009074336875267,
-  "ComponentConsistency@5": 0.9253470731358237,
-  "SeverityConsistency@5": 0.9270359238585946,
-  "Recall@10": 0.901245169600687,
-  "NDCG@10": 0.6915403468352457,
-  "ComponentConsistency@10": 0.9231716044081867,
-  "SeverityConsistency@10": 0.9251037641333906
+{
+  "base": {
+    "mAP": 0.2519659203849763,
+    "Recall@1": 0.48833548017747247,
+    "NDCG@1": 0.7234600030661005,
+    "ComponentConsistency@1": 0.9387433805639044,
+    "SeverityConsistency@1": 0.9330184628595964,
+    "Recall@5": 0.8137970516673823,
+    "NDCG@5": 0.7018408839826585,
+    "ComponentConsistency@5": 0.925576069843996,
+    "SeverityConsistency@5": 0.9290110204665808,
+    "Recall@10": 0.9053957349363103,
+    "NDCG@10": 0.6919848506365729,
+    "ComponentConsistency@10": 0.9219121225132388,
+    "SeverityConsistency@10": 0.9256619436095607
+  }
 }
-

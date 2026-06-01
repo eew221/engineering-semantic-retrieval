@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+message: "If you use this repository, please cite the manuscript and this code release."
+title: "Engineering-Semantic Retrieval of Bridge Defects for Visual Inspection Archives"
+authors:
+  - family-names: Lu
+    given-names: Yuge
+    email: 450671132@qq.com
+  - family-names: Huang
+    given-names: Sheng
+    email: 93449527@qq.com
+  - family-names: Lan
+    given-names: Qiuzu
+    email: a450674511@gmail.com
+  - family-names: Cai
+    given-names: Yong
+    email: caiyong1710@163.com
+version: "unpublished"
+date-released: "2026-06-01"
+repository-code: "https://github.com/eew221/engineering-semantic-retrieval"
+url: "https://github.com/eew221/engineering-semantic-retrieval"
+keywords:
+  - bridge inspection
+  - image retrieval
+  - vision-language
+  - CLIP
+  - engineering semantics

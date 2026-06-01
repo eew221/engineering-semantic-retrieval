@@ -5,7 +5,7 @@ param(
 $ErrorActionPreference = "Stop"
 
 $root = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path
-$python = "python"
+$python = "D:\conda\python.exe"
 $logDir = Join-Path $root "outputs\logs"
 New-Item -ItemType Directory -Force $logDir | Out-Null
 

@@ -1,0 +1,17 @@
+{
+  "base": {
+    "mAP": 0.2632640477478456,
+    "Recall@1": 0.5179619292972664,
+    "NDCG@1": 0.7375610190535268,
+    "ComponentConsistency@1": 0.9373121511378274,
+    "SeverityConsistency@1": 0.9331615858022041,
+    "Recall@5": 0.8292543294690139,
+    "NDCG@5": 0.7144607957037413,
+    "ComponentConsistency@5": 0.9248604551309575,
+    "SeverityConsistency@5": 0.9250035780735651,
+    "Recall@10": 0.9071132102476027,
+    "NDCG@10": 0.7035935739054809,
+    "ComponentConsistency@10": 0.921225132388722,
+    "SeverityConsistency@10": 0.9225991126377558
+  }
+}

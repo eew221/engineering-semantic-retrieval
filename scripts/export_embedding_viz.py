@@ -16,7 +16,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from src.bridge_retrieval.datasets import RetrievalDataset, retrieval_collate_fn
-from src.bridge_retrieval.modeling import BridgeRetrievalModel
+from src.bridge_retrieval.modeling import BridgeRetrievalModel, build_model_for_state_dict
 from src.bridge_retrieval.utils import ensure_dir, load_yaml
 
 try:
@@ -74,6 +74,7 @@ def main() -> None:
         is_train=False,
         max_samples=args.max_samples,
         use_full_image_fallback=cfg["data"]["use_full_image_fallback"],
+        image_normalization=cfg["data"].get("image_normalization", "clip"),
     )
     loader = DataLoader(
         dataset,
@@ -83,17 +84,25 @@ def main() -> None:
         collate_fn=retrieval_collate_fn,
     )
 
-    model = BridgeRetrievalModel(
-        backbone_name=cfg["model"]["backbone_name"],
-        dropout=cfg["model"]["dropout"],
-        freeze_vision_backbone=cfg["model"]["freeze_vision_backbone"],
-        use_text_anchors=cfg["model"]["use_text_anchors"],
-    ).to(device)
-
+    state = None
     if not args.no_checkpoint:
         checkpoint = args.checkpoint or Path(cfg["train"]["save_dir"]) / f"{cfg['experiment_name']}.pt"
         state = torch.load(checkpoint, map_location=device)
-        model.load_state_dict(state["model_state_dict"])
+        model, _ = build_model_for_state_dict(
+            backbone_name=cfg["model"]["backbone_name"],
+            dropout=cfg["model"]["dropout"],
+            freeze_vision_backbone=cfg["model"]["freeze_vision_backbone"],
+            use_text_anchors=cfg["model"]["use_text_anchors"],
+            state_dict=state["model_state_dict"],
+        )
+    else:
+        model = BridgeRetrievalModel(
+            backbone_name=cfg["model"]["backbone_name"],
+            dropout=cfg["model"]["dropout"],
+            freeze_vision_backbone=cfg["model"]["freeze_vision_backbone"],
+            use_text_anchors=cfg["model"]["use_text_anchors"],
+        )
+    model = model.to(device)
     model.eval()
 
     embeds = []
@@ -102,7 +111,7 @@ def main() -> None:
     for batch in loader:
         batch = move_batch_to_device(batch, device)
         outputs = model(batch)
-        embeds.append(outputs["image_embeds"].cpu().numpy())
+        embeds.append(outputs["image_embeds"].detach().cpu().numpy())
         damage.extend(batch["damage_class"])
         component.extend(batch["component_class"])
     embeds = np.concatenate(embeds, axis=0)

@@ -1,33 +1,32 @@
-﻿{
+{
   "base": {
-    "mAP": 0.4143004312247576,
-    "Recall@1": 0.5452984113353371,
-    "NDCG@1": 0.7396468672780362,
-    "ComponentConsistency@1": 0.9161299556318878,
-    "SeverityConsistency@1": 0.9053957349363103,
-    "Recall@5": 0.798626019750966,
-    "NDCG@5": 0.7299626714362132,
-    "ComponentConsistency@5": 0.9075425790754258,
-    "SeverityConsistency@5": 0.9029053957349363,
-    "Recall@10": 0.8700443681122084,
-    "NDCG@10": 0.7254759582269744,
-    "ComponentConsistency@10": 0.905853728352655,
-    "SeverityConsistency@10": 0.8997853155860884
+    "mAP": 0.4147828752032174,
+    "Recall@1": 0.5425790754257908,
+    "NDCG@1": 0.738204672013432,
+    "ComponentConsistency@1": 0.9134106197223415,
+    "SeverityConsistency@1": 0.9063975955345642,
+    "Recall@5": 0.8019178474309432,
+    "NDCG@5": 0.7297997726935191,
+    "ComponentConsistency@5": 0.9092600543867182,
+    "SeverityConsistency@5": 0.9044511235150995,
+    "Recall@10": 0.8709031057678546,
+    "NDCG@10": 0.7245797376785486,
+    "ComponentConsistency@10": 0.9068555889509088,
+    "SeverityConsistency@10": 0.9006011163589523
   },
   "reranked": {
-    "mAP": 0.41430568943086044,
-    "Recall@1": 0.5464433948761986,
-    "NDCG@1": 0.7402652691443522,
-    "ComponentConsistency@1": 0.9164162015171032,
-    "SeverityConsistency@1": 0.9058251037641334,
-    "Recall@5": 0.8000572491770431,
-    "NDCG@5": 0.7304726287210915,
-    "ComponentConsistency@5": 0.9077715757835981,
-    "SeverityConsistency@5": 0.9033061399742379,
-    "Recall@10": 0.8703306139974238,
-    "NDCG@10": 0.7256313460274294,
-    "ComponentConsistency@10": 0.9058394160583941,
-    "SeverityConsistency@10": 0.9000858737655646
+    "mAP": 0.41478704837685865,
+    "Recall@1": 0.5422928295405753,
+    "NDCG@1": 0.738383992062595,
+    "ComponentConsistency@1": 0.9142693573779876,
+    "SeverityConsistency@1": 0.906970087304995,
+    "Recall@5": 0.8009159868326893,
+    "NDCG@5": 0.7298115566027529,
+    "ComponentConsistency@5": 0.9091741806211535,
+    "SeverityConsistency@5": 0.9043652497495348,
+    "Recall@10": 0.8714755975382854,
+    "NDCG@10": 0.7247736268151574,
+    "ComponentConsistency@10": 0.9068126520681266,
+    "SeverityConsistency@10": 0.9009159868326893
   }
 }
-

@@ -61,6 +61,7 @@ def main() -> None:
         is_train=True,
         max_samples=cfg["data"].get("max_train_samples"),
         use_full_image_fallback=cfg["data"]["use_full_image_fallback"],
+        image_normalization=cfg["data"].get("image_normalization", "clip"),
         pair_weight_mode=cfg["train"].get("pair_weight_mode", "engineering"),
         partner_sampling_strategy=cfg["train"].get("partner_sampling_strategy", "random"),
         pair_weight_kwargs=cfg["train"].get("pair_weight_kwargs"),

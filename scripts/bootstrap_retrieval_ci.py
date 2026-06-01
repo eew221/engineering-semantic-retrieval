@@ -16,7 +16,7 @@ sys.path.insert(0, str(ROOT))
 from src.bridge_retrieval.datasets import RetrievalDataset, retrieval_collate_fn
 from src.bridge_retrieval.engineering_semantics import SampleSemantics, dcg
 from src.bridge_retrieval.metrics import build_relevance_matrix, similarity_matrix
-from src.bridge_retrieval.modeling import BridgeRetrievalModel
+from src.bridge_retrieval.modeling import BridgeRetrievalModel, build_model_for_state_dict
 from src.bridge_retrieval.utils import ensure_dir, load_yaml, save_json
 
 
@@ -126,6 +126,7 @@ def main() -> None:
         is_train=False,
         max_samples=cfg["data"].get("max_eval_samples"),
         use_full_image_fallback=cfg["data"]["use_full_image_fallback"],
+        image_normalization=cfg["data"].get("image_normalization", "clip"),
     )
     loader = DataLoader(
         dataset,
@@ -135,19 +136,27 @@ def main() -> None:
         collate_fn=retrieval_collate_fn,
     )
 
-    model = BridgeRetrievalModel(
-        backbone_name=cfg["model"]["backbone_name"],
-        dropout=cfg["model"]["dropout"],
-        freeze_vision_backbone=cfg["model"]["freeze_vision_backbone"],
-        use_text_anchors=cfg["model"]["use_text_anchors"],
-    ).to(device)
-
+    state = None
     checkpoint_label = "zero_shot"
     if not args.no_checkpoint:
         checkpoint = args.checkpoint or Path(cfg["train"]["save_dir"]) / f"{cfg['experiment_name']}.pt"
         state = torch.load(checkpoint, map_location=device)
-        model.load_state_dict(state["model_state_dict"])
         checkpoint_label = checkpoint.stem
+        model, _ = build_model_for_state_dict(
+            backbone_name=cfg["model"]["backbone_name"],
+            dropout=cfg["model"]["dropout"],
+            freeze_vision_backbone=cfg["model"]["freeze_vision_backbone"],
+            use_text_anchors=cfg["model"]["use_text_anchors"],
+            state_dict=state["model_state_dict"],
+        )
+    else:
+        model = BridgeRetrievalModel(
+            backbone_name=cfg["model"]["backbone_name"],
+            dropout=cfg["model"]["dropout"],
+            freeze_vision_backbone=cfg["model"]["freeze_vision_backbone"],
+            use_text_anchors=cfg["model"]["use_text_anchors"],
+        )
+    model = model.to(device)
     model.eval()
 
     embeddings = []
@@ -158,10 +167,10 @@ def main() -> None:
     for batch in loader:
         batch = move_batch_to_device(batch, device)
         outputs = model(batch)
-        embeddings.append(outputs["image_embeds"].cpu().numpy())
+        embeddings.append(outputs["image_embeds"].detach().cpu().numpy())
         damage_labels.extend(batch["damage_class"])
         component_labels.extend(batch["component_class"])
-        severity_scores.extend(batch["severity_score"].cpu().numpy().tolist())
+        severity_scores.extend(batch["severity_score"].detach().cpu().numpy().tolist())
 
     embeddings_np = np.concatenate(embeddings, axis=0)
     severity_np = np.asarray(severity_scores, dtype=np.float32)
