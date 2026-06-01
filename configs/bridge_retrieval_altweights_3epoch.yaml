@@ -1,0 +1,79 @@
+experiment_name: bridge_engineering_semantic_retrieval_altweights_3epoch
+seed: 42
+device: cuda
+
+data:
+  train_csv: data/processed/dacl10k/train_retrieval.csv
+  val_csv: data/processed/dacl10k/validation_retrieval.csv
+  test_csv: data/processed/dacl10k/validation_retrieval.csv
+  image_column: crop_path
+  use_full_image_fallback: true
+  image_size: 224
+  batch_size: 16
+  num_workers: 4
+  num_workers_eval: 0
+
+labels:
+  damage_classes:
+    - crack
+    - alligator crack
+    - wetspot
+    - efflorescence
+    - rust
+    - rockpocket
+    - hollowareas
+    - cavity
+    - spalling
+    - graffiti
+    - weathering
+    - restformwork
+    - exposed rebars
+  component_classes:
+    - bearing
+    - expansion joint
+    - drainage
+    - protective equipment
+    - joint tape
+    - washouts/concrete corrosion
+    - bridge component unknown
+
+model:
+  backbone_name: C:/Users/45067/.cache/huggingface/hub/models--openai--clip-vit-base-patch32/snapshots/3d74acf9a28c67741b2f4f2ea7635f0aaf6f0268
+  embedding_dim: 512
+  dropout: 0.1
+  freeze_vision_backbone: false
+  use_text_anchors: true
+
+train:
+  epochs: 3
+  lr: 1.0e-5
+  weight_decay: 1.0e-4
+  temperature: 0.07
+  cls_loss_weight: 0.5
+  severity_loss_weight: 0.2
+  engineering_loss_weight: 1.0
+  gradient_clip_norm: 1.0
+  pair_weight_mode: engineering
+  partner_sampling_strategy: random
+  pair_weight_kwargs:
+    same_damage_component_close_weight: 1.0
+    same_damage_component_far_weight: 0.75
+    same_damage_only_weight: 0.60
+    same_component_only_weight: 0.15
+    different_weight: 0.0
+  save_dir: outputs/checkpoints
+
+retrieval:
+  topk: [1, 5, 10]
+  rerank_topn: 20
+  rerank_damage_scale: 0.15
+  rerank_component_scale: 0.15
+  rerank_severity_scale: 0.10
+  severity_tolerance: 0.15
+  same_component_bonus: 0.2
+  same_damage_bonus: 0.4
+  severity_bonus_scale: 0.4
+
+output:
+  metrics_dir: outputs/metrics
+  qualitative_dir: outputs/qualitative

@@ -1,0 +1,33 @@
+﻿{
+  "base": {
+    "mAP": 0.20687937428021025,
+    "Recall@1": 0.2806640904536997,
+    "NDCG@1": 0.5512278572725127,
+    "ComponentConsistency@1": 0.9033920137398025,
+    "SeverityConsistency@1": 0.5422928295405753,
+    "Recall@5": 0.6457707170459425,
+    "NDCG@5": 0.5459567938847659,
+    "ComponentConsistency@5": 0.9020752826678117,
+    "SeverityConsistency@5": 0.5367396593673966,
+    "Recall@10": 0.7858880778588808,
+    "NDCG@10": 0.5435159415535532,
+    "ComponentConsistency@10": 0.9009875483039931,
+    "SeverityConsistency@10": 0.5326749677973379
+  },
+  "reranked": {
+    "mAP": 0.2068776528322767,
+    "Recall@1": 0.28023472162587665,
+    "NDCG@1": 0.5513262873779675,
+    "ComponentConsistency@1": 0.9036782596250179,
+    "SeverityConsistency@1": 0.5427221983683984,
+    "Recall@5": 0.6472019464720195,
+    "NDCG@5": 0.5456310099788089,
+    "ComponentConsistency@5": 0.9025619006726778,
+    "SeverityConsistency@5": 0.5355088020609704,
+    "Recall@10": 0.7850293402032346,
+    "NDCG@10": 0.5433205334048434,
+    "ComponentConsistency@10": 0.9007585515958209,
+    "SeverityConsistency@10": 0.5333333333333333
+  }
+}
+

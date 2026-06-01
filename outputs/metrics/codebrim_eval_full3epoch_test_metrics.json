@@ -1,0 +1,33 @@
+﻿{
+  "base": {
+    "mAP": 0.3757889243959793,
+    "Recall@1": 0.6507592190889371,
+    "NDCG@1": 0.6507592190889371,
+    "ComponentConsistency@1": 1.0,
+    "SeverityConsistency@1": 1.0,
+    "Recall@5": 0.8915401301518439,
+    "NDCG@5": 0.5838109994285,
+    "ComponentConsistency@5": 1.0,
+    "SeverityConsistency@5": 1.0,
+    "Recall@10": 0.9587852494577006,
+    "NDCG@10": 0.5347911522969027,
+    "ComponentConsistency@10": 1.0,
+    "SeverityConsistency@10": 1.0
+  },
+  "reranked": {
+    "mAP": 0.3756785044973139,
+    "Recall@1": 0.6507592190889371,
+    "NDCG@1": 0.6507592190889371,
+    "ComponentConsistency@1": 1.0,
+    "SeverityConsistency@1": 1.0,
+    "Recall@5": 0.8915401301518439,
+    "NDCG@5": 0.5827396826484998,
+    "ComponentConsistency@5": 1.0,
+    "SeverityConsistency@5": 1.0,
+    "Recall@10": 0.9544468546637744,
+    "NDCG@10": 0.5334880095640824,
+    "ComponentConsistency@10": 1.0,
+    "SeverityConsistency@10": 1.0
+  }
+}
+

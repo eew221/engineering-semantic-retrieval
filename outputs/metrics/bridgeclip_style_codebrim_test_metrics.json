@@ -1,0 +1,22 @@
+﻿{
+  "method": "bridgeclip_style_prompt_conditioned_zeroshot",
+  "alpha_image": 0.7,
+  "beta_text": 0.3,
+  "num_prompts": 6,
+  "base": {
+    "mAP": 0.4814917382330771,
+    "Recall@1": 0.8394793926247288,
+    "NDCG@1": 0.8394793926247288,
+    "ComponentConsistency@1": 1.0,
+    "SeverityConsistency@1": 1.0,
+    "Recall@5": 0.9414316702819957,
+    "NDCG@5": 0.7696096161959166,
+    "ComponentConsistency@5": 1.0,
+    "SeverityConsistency@5": 1.0,
+    "Recall@10": 0.9609544468546638,
+    "NDCG@10": 0.7317782344842164,
+    "ComponentConsistency@10": 1.0,
+    "SeverityConsistency@10": 1.0
+  }
+}
+

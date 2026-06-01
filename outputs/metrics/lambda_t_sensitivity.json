@@ -1,0 +1,36 @@
+﻿[
+  {
+    "lambda_t": 0.0,
+    "mAP": 0.19834980929263737,
+    "Recall@1": 0.2961213682553313,
+    "Recall@5": 0.6437669958494346,
+    "NDCG@5": 0.6075009618203568,
+    "metric_file": "outputs/metrics/bridge_engineering_semantic_retrieval_no_text_anchor_3epoch_test_metrics.json"
+  },
+  {
+    "lambda_t": 0.1,
+    "mAP": 0.1944388280889538,
+    "Recall@1": 0.28510090167453844,
+    "Recall@5": 0.64219264348075,
+    "NDCG@5": 0.6038246621702963,
+    "metric_file": "outputs/metrics/bridge_engineering_semantic_retrieval_lambda_t_01_3epoch_test_metrics.json"
+  },
+  {
+    "lambda_t": 0.3,
+    "mAP": 0.31421932669231206,
+    "Recall@1": 0.44053241734650067,
+    "Recall@5": 0.7272076713897238,
+    "NDCG@5": 0.6792446636356947,
+    "metric_file": "outputs/metrics/bridge_engineering_semantic_retrieval_full_3epoch_test_metrics.json"
+  },
+  {
+    "lambda_t": 0.5,
+    "mAP": 0.4143004312247576,
+    "Recall@1": 0.5452984113353371,
+    "Recall@5": 0.798626019750966,
+    "NDCG@5": 0.7299626714362132,
+    "metric_file": "outputs/metrics/bridge_engineering_semantic_retrieval_lambda_t_05_3epoch_test_metrics.json"
+  }
+]
+
+

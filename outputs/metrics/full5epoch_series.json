@@ -1,0 +1,20 @@
+﻿[
+  {
+    "epoch": 4,
+    "checkpoint": "outputs/checkpoints/bridge_engineering_semantic_retrieval_full_5epoch_epoch4.pt",
+    "mAP": 0.32621014047065705,
+    "Recall@1": 0.45498783454987834,
+    "Recall@5": 0.7485329898382711,
+    "NDCG@5": 0.683643928334449
+  },
+  {
+    "epoch": 5,
+    "checkpoint": "outputs/checkpoints/bridge_engineering_semantic_retrieval_full_5epoch_epoch5.pt",
+    "mAP": 0.3435093409164414,
+    "Recall@1": 0.46643766995849434,
+    "Recall@5": 0.7482467439530557,
+    "NDCG@5": 0.6921836279952862
+  }
+]
+
+
