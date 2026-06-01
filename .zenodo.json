@@ -1,0 +1,32 @@
+{
+  "title": "Engineering-Semantic Retrieval of Bridge Defects for Visual Inspection Archives",
+  "description": "Code and reproducibility materials for bridge-defect retrieval with engineering-semantic supervision. The repository includes training and evaluation scripts, experiment configurations, retrieval split manifests, metrics, and analysis figures used in the manuscript.",
+  "upload_type": "software",
+  "creators": [
+    {
+      "name": "Lu, Yuge",
+      "affiliation": "Guangxi Road And Bridge Engineering Group Co., Ltd., Nanning, China"
+    },
+    {
+      "name": "Huang, Sheng",
+      "affiliation": "Guangxi Road And Bridge Engineering Group Co., Ltd., Nanning, China"
+    },
+    {
+      "name": "Lan, Qiuzu",
+      "affiliation": "Guangxi Road And Bridge Engineering Group Co., Ltd., Nanning, China"
+    },
+    {
+      "name": "Cai, Yong",
+      "affiliation": "Guangxi Road And Bridge Engineering Group Co., Ltd., Nanning, China"
+    }
+  ],
+  "keywords": [
+    "bridge inspection",
+    "image retrieval",
+    "vision-language model",
+    "engineering semantics",
+    "DACL10K",
+    "CODEBRIM"
+  ],
+  "notes": "This release accompanies the manuscript 'Engineering-Semantic Retrieval of Bridge Defects for Visual Inspection Archives' prepared for submission to The Visual Computer. Raw third-party datasets are not redistributed."
+}
